@@ -74,6 +74,37 @@ app.post("/user/join", async (req, res) => {
   }
 });
 
+app.post("/read-cursors", async (req, res) => {
+  const { room_id, message_id } = req.body;
+  let seen_by = '';
+
+  try {
+    const cursors = await chatkit.getReadCursorsForRoom({
+      roomId: room_id,
+    });
+
+    const read_by_members = cursors.filter(item => item.position == message_id);
+
+    if (read_by_members.length > 0) {
+      const members = await chatkit.getUsersById({
+        userIds: read_by_members.map(item => item.user_id),
+      });
+
+      seen_by = members.map(item => {
+        return item.name;
+      }).join(', ');
+    }
+
+    res.send({
+      seen_by
+    });
+
+  } catch (err) {
+    console.log('read cursor error: ', err);
+  }
+});
+
+
 const PORT = 5000;
 app.listen(PORT, (err) => {
   if (err) {
