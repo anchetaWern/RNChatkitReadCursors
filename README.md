@@ -1,6 +1,8 @@
 # RNChatkitReadCursors
 A sample React Native chat app that implements the "seen by" feature commonly found in popular messaging applications.
 
+You can read the full tutorial at: [https://pusher.com/tutorials/read-cursor-react-native-chat](https://pusher.com/tutorials/read-cursor-react-native-chat)
+
 ## Prerequisites
 
 -   React Native development environment
